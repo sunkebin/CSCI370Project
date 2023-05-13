@@ -2,10 +2,10 @@
 public class Patient {
     private int patientID;
     private int age;
-    private String gender;
+    private int gender;
     private double bmi;
-    private String bloodPressure;
-    private double totalSerumControl;
+    private double bloodPressure;
+    private double totalSerumCholesterol;
     private double ldl;
     private double hdl;
     private double tch;
@@ -13,12 +13,12 @@ public class Patient {
     private double glu;
     private double diseaseProgressionValue;
 
-    public Patient(int age, String gender, double bmi, String bloodPressure, double totalSerumControl, double ldl, double hdl, double tch, double ltg, double glu, double diseaseProgressionValue) {
+    public Patient(int age, int gender, double bmi, double bloodPressure, double totalSerumCholesterol, double ldl, double hdl, double tch, double ltg, double glu, double diseaseProgressionValue) {
         this.age = age;
         this.gender = gender;
         this.bmi = bmi;
         this.bloodPressure = bloodPressure;
-        this.totalSerumControl = totalSerumControl;
+        this.totalSerumCholesterol = totalSerumCholesterol;
         this.ldl = ldl;
         this.hdl = hdl;
         this.tch = tch;
@@ -36,7 +36,7 @@ public class Patient {
         return age;
     }
 
-    public String getGender() {
+    public int getGender() {
         return gender;
     }
 
@@ -44,11 +44,11 @@ public class Patient {
         return bmi;
     }
 
-    public double getTotalSerumControl() {
-        return totalSerumControl;
+    public double getTotalSerumCholesterol() {
+        return totalSerumCholesterol;
     }
 
-    public String getBloodPressure() {
+    public double getBloodPressure() {
         return bloodPressure;
     }
 
@@ -89,7 +89,7 @@ public class Patient {
         this.age = age;
     }
 
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
@@ -97,12 +97,12 @@ public class Patient {
         this.bmi = bmi;
     }
 
-    public void setBloodPressure(String bloodPressure) {
+    public void setBloodPressure(double bloodPressure) {
         this.bloodPressure = bloodPressure;
     }
 
-    public void setTotalSerumControl(double totalSerumControl) {
-        this.totalSerumControl = totalSerumControl;
+    public void setTotalSerumCholesterol(double totalSerumCholesterol) {
+        this.totalSerumCholesterol = totalSerumCholesterol;
     }
 
     public void setHdl(double hdl) {
@@ -125,10 +125,34 @@ public class Patient {
         this.diseaseProgressionValue = diseaseProgressionValue;
     }
 
-    //Method to create new patient with given details
-    public Patient NewPatient(int age, String gender, double bmi, String bloodPressure, double totalSerumControl, double ldl, double hdl, double tch, double ltg, double glu, double diseaseProgressionValue) {
-        Patient newPatient = new Patient(age, gender, bmi, bloodPressure, totalSerumControl, ldl, hdl, tch, ltg, glu, diseaseProgressionValue);
+    public Patient NewPatient(int age, int gender, double bmi, double bloodPressure, double totalSerumCholesterol, double ldl, double hdl, double tch, double ltg, double glu, double diseaseProgressionValue) {
+        Patient newPatient = new Patient(age, gender, bmi, bloodPressure, totalSerumCholesterol, ldl, hdl, tch, ltg, glu, diseaseProgressionValue);
         return newPatient;
     }
 
+    public double getCriterionValue(String criterion) {
+        if (criterion.equals("age")) {
+            return age;
+        } else if (criterion.equals("gender")) {
+            return gender;
+        } else if (criterion.equals("bmi")) {
+            return bmi;
+        } else if (criterion.equals("bloodPressure")) {
+            return bloodPressure;
+        } else if (criterion.equals("totalSerumCholesterol")) {
+            return totalSerumCholesterol;
+        } else if (criterion.equals("ldl")) {
+            return ldl;
+        } else if (criterion.equals("hdl")) {
+            return hdl;
+        } else if (criterion.equals("tch")) {
+            return tch;
+        } else if (criterion.equals("ltg")) {
+            return ltg;
+        } else if (criterion.equals("glu")) {
+            return glu;
+        } else {
+            return 0.0; // dummy
+        }
+    }
 }
