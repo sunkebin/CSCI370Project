@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class DecisionTree {
     public static final int HEIGHT_LIMIT = 10;
@@ -9,10 +6,12 @@ public class DecisionTree {
     int impurity = 1;
     List<TreeNode> treeNodes;
     TreeNode root;
+    List<String> criteria = new ArrayList<>();
 
     public DecisionTree(List<TreeNode> treeNodes, TreeNode root){
         this.treeNodes = treeNodes;
         this.root = root;
+        criteria.addAll(Arrays.asList("age", "gender", "bmi", "bloodPressure", "totalSerumCholesterol","ldl", "hdl", "tch", "ltg", "glu"));
     }
 
     public TreeNode buildDecisionTree(LinkedList<Patient> data, int currentHeight) {
@@ -38,12 +37,12 @@ public class DecisionTree {
     public BranchingCriteria learnBranchingCriteria(LinkedList<Patient> data) {
         String bestCriteriaName = null;
         double bestCriteriaValue = Double.NaN;
-
         // Calculate and compare metrics for each criterion
         double bestImpurity = Double.POSITIVE_INFINITY; // Initialize with a high value to find the minimum impurity
 
         // Evaluate each criterion and choose the one with the lowest impurity
-        for (String criterion : getAvailableCriteria()) {
+        List<String> availableCriteria = getAvailableCriteria();
+        for (String criterion : availableCriteria) {
             List<Double> criterionValues = new ArrayList<>();
 
             // Extract the values of the current criterion from the patient data
@@ -66,7 +65,7 @@ public class DecisionTree {
                 bestCriteriaValue = median;
             }
         }
-
+        availableCriteria.remove(bestCriteriaName);
         // Create and return the branching criteria with the best split
         return new BranchingCriteria(bestCriteriaName, bestCriteriaValue);
     }
@@ -75,19 +74,6 @@ public class DecisionTree {
     }
 
     public List<String> getAvailableCriteria() {
-        List<String> criteria = new ArrayList<>();
-
-        criteria.add("age");
-        criteria.add("gender");
-        criteria.add("bmi");
-        criteria.add("bloodPressure");
-        criteria.add("totalSerumCholesterol");
-        criteria.add("ldl");
-        criteria.add("hdl");
-        criteria.add("tch");
-        criteria.add("ltg");
-        criteria.add("glu");
-
         return criteria;
     }
 
