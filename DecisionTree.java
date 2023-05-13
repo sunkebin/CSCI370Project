@@ -90,7 +90,7 @@ public class DecisionTree {
         return false;
     }
 
-    public void predict(Patient patient){
+    public int predict(Patient patient){
 
     }
 
