@@ -26,22 +26,32 @@ public class GUIhandler implements ActionListener {
 			}
     	  }
       }else if(menuName.equals("Predict")) {
-    	  PredictInput();
+          JFileChooser chooser = new JFileChooser();
+          FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV");
+          chooser.setFileFilter(filter);
+          int returnVal = chooser.showOpenDialog(null);
+          if(returnVal == JFileChooser.APPROVE_OPTION) {
+              try {
+                  readSourcePredict(chooser.getSelectedFile());
+              } catch (NumberFormatException | IOException e) {
+                  e.printStackTrace();
+              }
+          }
       }
       else if (menuName.equals("Quit")) {
           JOptionPane.showMessageDialog(null,"You clicked on Quit"); 
       }
    }
-   
-   private void PredictInput() {
-	   
-	   
-   }
 
-   private void readSource(File chosenFile) throws NumberFormatException, IOException {
+    private void readSourcePredict(File selectedFile)  throws NumberFormatException, IOException{
+       RandomForest rf=new RandomForest();
+
+    }
+
+    private void readSource(File chosenFile) throws NumberFormatException, IOException {
    
 	   
-   }
+    }
    
    
 }
