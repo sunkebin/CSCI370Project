@@ -1,13 +1,12 @@
 public class MaxHeap {
-    private int[] heap;
-    private int size;
-    private int maxSize;
+    TreeNode[] heap;
+    int size;
+    int maxSize;
 
     public MaxHeap(int maxSize) {
         this.maxSize = maxSize;
         this.size = 0;
-        this.heap = new int[maxSize + 1];
-        this.heap[0] = Integer.MAX_VALUE;
+        this.heap = new TreeNode[maxSize + 1];
     }
 
     private int parent(int pos) {
@@ -27,7 +26,7 @@ public class MaxHeap {
     }
 
     private void swap(int pos1, int pos2) {
-        int temp = heap[pos1];
+    	TreeNode temp = heap[pos1];
         heap[pos1] = heap[pos2];
         heap[pos2] = temp;
     }
@@ -41,10 +40,10 @@ public class MaxHeap {
 
         int largest = pos;
 
-        if (left <= size && heap[left] > heap[largest])
+        if (left <= size && heap[left].score > heap[largest].score)
             largest = left;
 
-        if (right <= size && heap[right] > heap[largest])
+        if (right <= size && heap[right].score > heap[largest].score)
             largest = right;
 
         if (largest != pos) {
@@ -53,21 +52,21 @@ public class MaxHeap {
         }
     }
 
-    public void insert(int element) {
+    public void insert(TreeNode element) {
         if (size >= maxSize)
             return;
 
         heap[++size] = element;
         int current = size;
 
-        while (heap[current] > heap[parent(current)]) {
+        while (heap[current].score > heap[parent(current)].score) {
             swap(current, parent(current));
             current = parent(current);
         }
     }
 
-    public int remove() {
-        int removed = heap[1];
+    public TreeNode remove() {
+        TreeNode removed = heap[1];
         heap[1] = heap[size--];
         maxHeapify(1);
         return removed;

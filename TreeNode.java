@@ -2,14 +2,16 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 
 public class TreeNode {
-	TreeNode leftChild;
-	TreeNode rightChild;
 	BranchingCiteria Branch;
-	
-	TreeNode(BranchingCiteria b){
+	linkedList leftPatients;
+	linkedList rightPatients;
+	double score;
+ 	
+	TreeNode(BranchingCiteria b, double s){
 		Branch=b;
-		leftChild=null;
-		rightChild=null;
+		leftPatients=new linkedList();
+		rightPatients=new linkedList();
+		score=s;
 	}
 	
 	void print(BufferedWriter w) throws IOException {
