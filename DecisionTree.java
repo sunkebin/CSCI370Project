@@ -14,6 +14,12 @@ public class DecisionTree {
         criteria.addAll(Arrays.asList("age", "gender", "bmi", "bloodPressure", "totalSerumCholesterol","ldl", "hdl", "tch", "ltg", "glu"));
     }
 
+    public DecisionTree(){
+        this.treeNodes = null;
+        this.root = null;
+        criteria.addAll(Arrays.asList("age", "gender", "bmi", "bloodPressure", "totalSerumCholesterol","ldl", "hdl", "tch", "ltg", "glu"));
+    }
+
     public TreeNode buildDecisionTree(LinkedList<Patient> data, int currentHeight) {
         if (currentHeight >= HEIGHT_LIMIT || isLeafLimitReached(root) || impurity <= 0) {
             return root;
@@ -132,7 +138,7 @@ public class DecisionTree {
         return false;
     }
 
-    public int predict(Patient patient){
+    public void predict(Patient patient){
 
     }
 

@@ -6,12 +6,14 @@ import java.util.List;
 
 public class TreeNode {
 	BranchingCriteria Branch;
+	LinkedList<Patient> AllPatients;
 	LinkedList<Patient> leftPatients;
 	LinkedList<Patient> rightPatients;
 	double score;
  	
 	TreeNode(BranchingCriteria b, double s){
 		Branch=b;
+		AllPatients=new LinkedList<Patient>();
 		leftPatients= new LinkedList<Patient>();
 		rightPatients= new LinkedList<Patient>();
 		score=s;
