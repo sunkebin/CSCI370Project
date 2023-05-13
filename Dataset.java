@@ -65,9 +65,9 @@ public class Dataset {
             String[] patientData = line.split(",");
             int patientID = Integer.parseInt(patientData[0].trim());
             int age = Integer.parseInt(patientData[1].trim());
-            String gender = patientData[2].trim();
+            int gender = Integer.parseInt(patientData[2].trim());
             double bmi = Double.parseDouble(patientData[3].trim());
-            String bloodPressure = patientData[4].trim();
+            double bloodPressure = Double.parseDouble(patientData[4].trim());
             double totalSerumControl = Double.parseDouble(patientData[5].trim());
             double ldl = Double.parseDouble(patientData[6].trim());
             double hdl = Double.parseDouble(patientData[7].trim());
@@ -92,15 +92,9 @@ public class Dataset {
 
     //Method to validate patient data
     public Patient validatePatientData(Patient patient) throws Exception {
-        // Check for null or empty string values
-        if (patient.getGender() == null || patient.getGender().isEmpty() ||
-                patient.getBloodPressure() == null || patient.getBloodPressure().isEmpty()) {
-            throw new Exception("Invalid patient data: gender or BP are null or empty");
-        }
-
         // Check age, BMI, and other integer/double fields
-        if (patient.getAge() <= 0 || patient.getBmi() <= 0 ||
-                patient.getTotalSerumControl() <= 0 || patient.getLdl() <= 0 ||
+        if (patient.getAge() <= 0 || patient.getGender() <= 0 || patient.getBmi() <= 0 ||
+                patient.getBloodPressure() <= 0 || patient.getTotalSerumCholesterol() <= 0 || patient.getLdl() <= 0 ||
                 patient.getHdl() <= 0 || patient.getTch() <= 0 ||
                 patient.getLtg() <= 0 || patient.getGlu() <= 0) {
             throw new Exception("Invalid patient data: age, BMI, or lab values are negative or 0");
