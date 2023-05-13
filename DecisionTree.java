@@ -16,7 +16,7 @@ public class DecisionTree {
 
     public TreeNode buildDecisionTree(LinkedList<Patient> data, int currentHeight) {
         if (currentHeight >= HEIGHT_LIMIT || isLeafLimitReached(root) || impurity <= 0) {
-            return currNode;
+            return root;
         } else {
             BranchingCriteria branchingCriteria = learnBranchingCriteria(data);
 
@@ -32,6 +32,22 @@ public class DecisionTree {
     }
 
     public List<LinkedList<Patient>> splitData(LinkedList<Patient> data, BranchingCriteria branchingCriteria) {
+        List<LinkedList<Patient>> subsets = new ArrayList<>();
+        LinkedList<Patient> leftSubset = new LinkedList<>();
+        LinkedList<Patient> rightSubset = new LinkedList<>();
+
+        for (Patient patient : data) {
+            double criterionValue = patient.getCriterionValue(branchingCriteria.getName());
+            if (criterionValue <= branchingCriteria.getValue()) {
+                leftSubset.add(patient);
+            } else {
+                rightSubset.add(patient);
+            }
+        }
+
+        subsets.add(leftSubset);
+        subsets.add(rightSubset);
+        return subsets;
     }
 
     public BranchingCriteria learnBranchingCriteria(LinkedList<Patient> data) {
