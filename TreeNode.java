@@ -2,12 +2,12 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 
 public class TreeNode {
-	BranchingCiteria Branch;
+	BranchingCriteria Branch;
 	linkedList leftPatients;
 	linkedList rightPatients;
 	double score;
  	
-	TreeNode(BranchingCiteria b, double s){
+	TreeNode(BranchingCriteria b, double s){
 		Branch=b;
 		leftPatients=new linkedList();
 		rightPatients=new linkedList();
