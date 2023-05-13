@@ -86,14 +86,40 @@ public class DecisionTree {
         return new BranchingCriteria(bestCriteriaName, bestCriteriaValue);
     }
 
-    private double calculateImpurity(LinkedList<Patient> data, String criterion, double median) {
+    public double calculateImpurity(LinkedList<Patient> data, String criterion, double median) {
+        int totalCount = data.size();
+        int leftCount = 0;
+        int rightCount = 0;
+
+        // Count the number of patients on the left and right sides of the split
+        for (Patient patient : data) {
+            double criterionValue = patient.getCriterionValue(criterion);
+            if (criterionValue <= median) {
+                leftCount++;
+            } else {
+                rightCount++;
+            }
+        }
+
+        // Calculate the probabilities of each side
+        double leftProbability = (double) leftCount / totalCount;
+        double rightProbability = (double) rightCount / totalCount;
+
+        // Calculate the Gini index
+        double giniLeft = 1 - Math.pow(leftProbability, 2) - Math.pow(1 - leftProbability, 2);
+        double giniRight = 1 - Math.pow(rightProbability, 2) - Math.pow(1 - rightProbability, 2);
+
+        // Calculate the weighted average of the Gini indices
+        double impurity = (leftCount * giniLeft + rightCount * giniRight) / totalCount;
+
+        return impurity;
     }
 
     public List<String> getAvailableCriteria() {
         return criteria;
     }
 
-    private boolean isLeafLimitReached(TreeNode node) {
+    public boolean isLeafLimitReached(TreeNode node) {
         if (node.isLeaf()) {
             return true;
         }
