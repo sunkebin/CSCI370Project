@@ -1,16 +1,17 @@
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.LinkedList;
 
 public class TreeNode {
 	BranchingCriteria Branch;
-	linkedList leftPatients;
-	linkedList rightPatients;
+	LinkedList<patient> leftPatients;
+	LinkedList<patient> rightPatients;
 	double score;
  	
 	TreeNode(BranchingCriteria b, double s){
 		Branch=b;
-		leftPatients=new linkedList();
-		rightPatients=new linkedList();
+		leftPatients= new LinkedList<patient>();
+		rightPatients= new LinkedList<patient>();
 		score=s;
 	}
 	
