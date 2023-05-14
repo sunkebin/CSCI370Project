@@ -1,9 +1,10 @@
+import java.io.*;
 import java.util.*;
 
 public class DecisionTree {
     public static final int HEIGHT_LIMIT = 10;
     public static final int MAX_LEAVES = (int) Math.pow(2, 10);
-    MaxHeap maxHeap = new MaxHeap(MAX_LEAVES);
+    //MaxHeap maxHeap = new MaxHeap(MAX_LEAVES);
     int impurity = 1;
     List<TreeNode> treeNodes;
     TreeNode root;
@@ -33,7 +34,6 @@ public class DecisionTree {
             for (LinkedList<Patient> subset : subsets) {
                 subTrees.add(buildDecisionTree(subset, currentHeight + 1));
             }
-
             return root;
         }
     }
@@ -147,9 +147,9 @@ public class DecisionTree {
             double criterionValue = curr.Branch.getValue();
 
             if (patient.getCriterionValue(criterionName) <= criterionValue) {
-                curr = curr.getLeftPatients();
+                curr = curr.getLeftChild();
             } else {
-                curr = curr.getRightPatients();
+                curr = curr.getRightChild();
             }
         }
 
@@ -186,11 +186,33 @@ public class DecisionTree {
 
     public void write(){
 
+        try {
+            // Creates a FileWriter
+            FileWriter writer = new FileWriter("output.txt");
+
+            // Wraps the FileWriter in a BufferedWriter.
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            // Writes the string to the file
+            for (TreeNode node: treeNodes) {
+                bufferedWriter.write(predict(node));
+            }
+
+            // Closes the writer
+            bufferedWriter.close();
+        }
+        catch(IOException e) {
+            // If an I/O error occurs
+            e.printStackTrace();
+        }
+
     }
 
-    public void readDecisionTree(){
-
+    public List<TreeNode> readDecisionTree(){
+        return treeNodes;
+        //randomForest.getDecisionTrees();
     }
+
 
     public void Report(){
 
@@ -202,5 +224,9 @@ public class DecisionTree {
 
     public double getImpurity() {
         return impurity;
+    }
+
+    public void newDecisionTrees() {
+
     }
 }

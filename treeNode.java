@@ -6,39 +6,45 @@ import java.util.List;
 
 public class treeNode {
 	BranchingCriteria Branch;
-	LinkedList<Patient> leftPatients;
-	LinkedList<Patient> rightPatients;
+	treeNode leftChild;
+	treeNode rightChild;
 	double score;
- 	
+
 	treeNode(BranchingCriteria b, double s){
 		Branch=b;
-		leftPatients= new LinkedList<Patient>();
-		rightPatients= new LinkedList<Patient>();
 		score=s;
 	}
-	
+
 	void print(BufferedWriter w) throws IOException {
 		w.write(Branch.Name+"; "+Branch.Value+"->");
 	}
-	public LinkedList<Patient> getLeftPatients() {
-		return leftPatients;
+	public treeNode getLeftChild() {
+		return leftChild;
 	}
 
-	public LinkedList<Patient> getRightPatients() {
-		return rightPatients;
+	public void setLeftChild(treeNode leftChild) {
+		this.leftChild = leftChild;
 	}
+
+	public treeNode getRightChild() {
+		return rightChild;
+	}
+
+	public void setRightChild(treeNode rightChild) {
+		this.rightChild = rightChild;
+	}
+
 	public boolean isLeaf() {
-		return leftPatients.isEmpty() && rightPatients.isEmpty();
+		return leftChild == null && rightChild == null;
 	}
-
 	public List<treeNode> getChildNodes() {
 		List<treeNode> childNodes = new ArrayList<>();
-		treeNode leftNode = new treeNode(null, 0);
-		leftNode.leftPatients = leftPatients;
-		treeNode rightNode = new treeNode(null, 0);
-		rightNode.rightPatients = rightPatients;
-		childNodes.add(leftNode);
-		childNodes.add(rightNode);
+		if (leftChild != null) {
+			childNodes.add(leftChild);
+		}
+		if (rightChild != null) {
+			childNodes.add(rightChild);
+		}
 		return childNodes;
 	}
 }
