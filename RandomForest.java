@@ -36,7 +36,7 @@ public class RandomForest {
                 }writer.close();
             } else {
                 File f=new File("log.txt");
-                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(f));
                 writer.write(MAX_TREES+"\n");
                 for(int i=0; i<MAX_TREES;i++){
                     for(int j=1; j<DecisionTrees[i].maxHeap.size;j++){
@@ -113,7 +113,7 @@ public class RandomForest {
             for(int j=0; j<outOfBagSample.size();j++){
                 predict[i][j]=DecisionTrees[i].predict(outOfBagSample.get(j));
                 if(predict[i][j]==actual[i]) {
-                    DecisionTrees[i].Accuracy += 1 / outOfBagSample.size();
+                    DecisionTrees[i].Accuracy += 1.0 / outOfBagSample.size();
                 }
             }
         }
