@@ -25,7 +25,7 @@ public class treeNode {
 	}
 
 	void print(BufferedWriter w) throws IOException {
-		w.write(Branch.Name+"; "+Branch.Value+"->");
+		w.write(Branch.Name+"; "+Branch.Value+"; "+score+",");
 	}
 	public LinkedList<Patient> getLeftPatients() {
 		return leftPatients;

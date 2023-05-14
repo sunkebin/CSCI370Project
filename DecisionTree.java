@@ -8,6 +8,7 @@ public class DecisionTree {
     List<treeNode> treeNodes;
     treeNode root;
     List<String> criteria = new ArrayList<>();
+    double Accuracy=0.0;
 
     public DecisionTree(List<treeNode> treeNodes, treeNode root){
         this.treeNodes = treeNodes;
@@ -30,6 +31,7 @@ public class DecisionTree {
             counter++;
         }
     }
+
 
     public treeNode splitData(LinkedList<Patient> data, BranchingCriteria branchingCriteria) {
         List<LinkedList<Patient>> subsets = new ArrayList<>();
@@ -163,14 +165,6 @@ public class DecisionTree {
 
     public void addNode(treeNode node){
         treeNodes.add(node);
-    }
-
-    public void write(){
-
-    }
-
-    public void readDecisionTree(){
-
     }
 
     public void Report(){

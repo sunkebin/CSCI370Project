@@ -66,7 +66,10 @@ public class GUIhandler implements ActionListener {
         JScrollPane scrollPane2 = new JScrollPane(textArea);
         jframe.getContentPane().add(scrollPane2);
         textArea.append("Training Finished.\n");
-        //produce report:
+        for(int i=0;i<rf.DecisionTrees.length;i++){
+            textArea.append("Tree "+i+" accuracy is "+rf.DecisionTrees[i].Accuracy+".\n");
+        }
+        //report?
 
     }
    
