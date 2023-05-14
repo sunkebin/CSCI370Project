@@ -11,7 +11,9 @@ public class RandomForest {
 
     RandomForest(){
         DecisionTrees=new DecisionTree[MAX_TREES];
-        Data=null;
+        List<Patient> p =new ArrayList<Patient>();
+        Data=new Dataset(p,0,0);
+        outOfBagSample=new ArrayList<Patient>();
     }
 
     void readFile(File f) throws IOException {
