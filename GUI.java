@@ -21,7 +21,7 @@ public class GUI extends JFrame {
 	      JMenu       fileMenu = new JMenu("Menu");
 	      GUIhandler fmh  = new GUIhandler(jf);
 
-	      item = new JMenuItem("Open");   
+	      item = new JMenuItem("Train");
 	      item.addActionListener( fmh );
 	      fileMenu.add( item );
 

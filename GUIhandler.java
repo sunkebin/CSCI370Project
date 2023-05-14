@@ -13,7 +13,7 @@ public class GUIhandler implements ActionListener {
    
    public void actionPerformed(ActionEvent event) {
       String menuName = event.getActionCommand();
-      if (menuName.equals("Open")) {
+      if (menuName.equals("Train")) {
     	  JFileChooser chooser = new JFileChooser();
     	  FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV");
     	  chooser.setFileFilter(filter);
@@ -39,18 +39,35 @@ public class GUIhandler implements ActionListener {
           }
       }
       else if (menuName.equals("Quit")) {
-          JOptionPane.showMessageDialog(null,"You clicked on Quit"); 
+          System.exit(0);
       }
    }
 
     private void readSourcePredict(File selectedFile)  throws NumberFormatException, IOException{
-       RandomForest rf=new RandomForest();
-
+        RandomForest rf=new RandomForest();
+        int[] predictionR=rf.predict(selectedFile);
+        JTextArea textArea = new JTextArea(10, 20);
+        textArea.setEditable(false);
+        JScrollPane scrollPane2 = new JScrollPane(textArea);
+        jframe.getContentPane().add(scrollPane2);
+        for(int i=0;i<predictionR.length;i++){
+            if(predictionR[i]==1){
+                textArea.append("Patient "+i+" has a high possibility to get exacerbation of diabetes.\n");
+            }else textArea.append("Patient "+i+" has a low possibility to get exacerbation of diabetes.\n");
+        }
     }
 
     private void readSource(File chosenFile) throws NumberFormatException, IOException {
-   
-	   
+        RandomForest rf=new RandomForest();
+	    rf.readFile(chosenFile);
+        rf.RandomForestAlg();
+        JTextArea textArea = new JTextArea(10, 20);
+        textArea.setEditable(false);
+        JScrollPane scrollPane2 = new JScrollPane(textArea);
+        jframe.getContentPane().add(scrollPane2);
+        textArea.append("Training Finished.\n");
+        //produce report:
+
     }
    
    

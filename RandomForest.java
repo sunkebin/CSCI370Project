@@ -53,9 +53,9 @@ public class RandomForest {
         return bootStrapPatients;
     }
 
-    int[] predict(){
+    int[] predict(File f){
         int[] predictResult=new int[Data.getTotalNumber()];
-        DecisionTrees=readTree();
+        DecisionTrees=readTree(f);
         int num = 0;
         for(Patient p: Data.getPatients()){
             int[] treeResult = new int[10];
@@ -73,7 +73,7 @@ public class RandomForest {
         return predictResult;
     }
 
-    private DecisionTree[] readTree() {
+    private DecisionTree[] readTree(File f) {
 
     }
 }
