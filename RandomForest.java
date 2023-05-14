@@ -36,6 +36,13 @@ public class RandomForest {
                 }writer.close();
             } else {
                 File f=new File("log.txt");
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                writer.write(MAX_TREES+"\n");
+                for(int i=0; i<MAX_TREES;i++){
+                    for(int j=1; j<DecisionTrees[i].maxHeap.size;j++){
+                        DecisionTrees[i].maxHeap.heap[j].print(writer);
+                    }writer.write("\n");
+                }writer.close();
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
