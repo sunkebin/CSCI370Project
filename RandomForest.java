@@ -47,10 +47,10 @@ public class RandomForest {
     public DecisionTree obtainTree() {
         Random random = new Random();
         //bootstrapping sample
-        List<Patient> patients = new ArrayList<Patient>(Arrays.asList(Data.getPatients()));
+        List<Patient> patients = Data.getPatients();
         List<Patient> bootStrapPatients = createBootStrap(patients, random);
 
-        List<Patient> outOfBagPatients = new ArrayList<Patient>(Arrays.asList(Data.getPatients()));
+        List<Patient> outOfBagPatients = Data.getPatients();
         outOfBagPatients.removeAll(bootStrapPatients);
         outOfBagSample.addAll(outOfBagPatients);
 
