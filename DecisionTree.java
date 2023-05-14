@@ -5,11 +5,11 @@ public class DecisionTree {
     public static final int MAX_LEAVES = (int) Math.pow(2, 10);
     MaxHeap maxHeap = new MaxHeap(MAX_LEAVES);
     int impurity = 1;
-    List<TreeNode> treeNodes;
-    TreeNode root;
+    List<treeNode> treeNodes;
+    treeNode root;
     List<String> criteria = new ArrayList<>();
 
-    public DecisionTree(List<TreeNode> treeNodes, TreeNode root){
+    public DecisionTree(List<treeNode> treeNodes, treeNode root){
         this.treeNodes = treeNodes;
         this.root = root;
         criteria.addAll(Arrays.asList("age", "gender", "bmi", "bloodPressure", "totalSerumCholesterol","ldl", "hdl", "tch", "ltg", "glu"));
@@ -21,40 +21,47 @@ public class DecisionTree {
         criteria.addAll(Arrays.asList("age", "gender", "bmi", "bloodPressure", "totalSerumCholesterol","ldl", "hdl", "tch", "ltg", "glu"));
     }
 
-    public TreeNode buildDecisionTree(LinkedList<Patient> data, int currentHeight) {
-        if (currentHeight >= HEIGHT_LIMIT || isLeafLimitReached(root) || impurity <= 0) {
-            return root;
-        } else {
+    public void buildDecisionTree(LinkedList<Patient> data) {
+        int counter=0;
+        while (counter <MAX_LEAVES || impurity <= 0) {
             BranchingCriteria branchingCriteria = learnBranchingCriteria(data);
-
-            List<LinkedList<Patient>> subsets = splitData(data, branchingCriteria);
-
-            List<TreeNode> subTrees = new LinkedList<>();
-            for (LinkedList<Patient> subset : subsets) {
-                subTrees.add(buildDecisionTree(subset, currentHeight + 1));
-            }
-
-            return root;
+            treeNode node = splitData(data, branchingCriteria);
+            maxHeap.insert(node);
+            counter++;
         }
     }
 
-    public List<LinkedList<Patient>> splitData(LinkedList<Patient> data, BranchingCriteria branchingCriteria) {
+    public treeNode splitData(LinkedList<Patient> data, BranchingCriteria branchingCriteria) {
         List<LinkedList<Patient>> subsets = new ArrayList<>();
         LinkedList<Patient> leftSubset = new LinkedList<>();
         LinkedList<Patient> rightSubset = new LinkedList<>();
-
+        treeNode node = new treeNode(branchingCriteria,0);
+        int score=0;
         for (Patient patient : data) {
             double criterionValue = patient.getCriterionValue(branchingCriteria.getName());
             if (criterionValue <= branchingCriteria.getValue()) {
                 leftSubset.add(patient);
+                if(patient.getDiseaseProgressionValue()>150){
+                    score++;
+                }else{
+                    score--;
+                }
             } else {
                 rightSubset.add(patient);
+                if(patient.getDiseaseProgressionValue()>150){
+                    score++;
+                }else{
+                    score--;
+                }
             }
         }
-
+        node.Branch=branchingCriteria;
+        node.score=score;
         subsets.add(leftSubset);
+        node.leftPatients=leftSubset;
         subsets.add(rightSubset);
-        return subsets;
+        node.rightPatients=rightSubset;
+        return node;
     }
 
     public BranchingCriteria learnBranchingCriteria(LinkedList<Patient> data) {
@@ -126,12 +133,12 @@ public class DecisionTree {
         return criteria;
     }
 
-    public boolean isLeafLimitReached(TreeNode node) {
+    public boolean isLeafLimitReached(treeNode node) {
         if (node.isLeaf()) {
             return true;
         }
 
-        for (TreeNode child : node.getChildNodes()) {
+        for (treeNode child : node.getChildNodes()) {
             if (isLeafLimitReached(child)) {
                 return true;
             }
@@ -140,47 +147,21 @@ public class DecisionTree {
     }
 
     public int predict(Patient patient) {
-        TreeNode curr = root;
-
-        while (!curr.isLeaf()) {
-            String criterionName = curr.Branch.getName();
-            double criterionValue = curr.Branch.getValue();
-
-            if (patient.getCriterionValue(criterionName) <= criterionValue) {
-                curr = curr.getLeftPatients();
-            } else {
-                curr = curr.getRightPatients();
+        int i=1;
+        treeNode curr=maxHeap.heap[i];
+        while(i<maxHeap.size){
+            curr=maxHeap.heap[i];
+            double v=patient.getCriterionValue(curr.Branch.getName());
+            double bv=curr.Branch.getValue();
+            if(v<bv) {
+                i=i*2;
             }
+            else i=i*2+1;
         }
-
-        // Count the number of left and right branches
-        int leftCount = countBranches(curr, true);
-        int rightCount = countBranches(curr, false);
-
-        // Make prediction based on majority class
-        if (leftCount <= rightCount) {
-            return 0;  // Predict "no diabetes"
-        } else {
-            return 1;  // Predict "diabetes"
-        }
+        return curr.score;
     }
 
-    private int countBranches(TreeNode node, boolean isLeft) {
-        if (node.isLeaf()) {
-            return isLeft ? 1 : 0;
-        }
-
-        int count = 0;
-        if (isLeft) {
-            count += countBranches(node.getLeftChild(), true);
-        } else {
-            count += countBranches(node.getRightChild(), false);
-        }
-        return count;
-    }
-
-
-    public void addNode(TreeNode node){
+    public void addNode(treeNode node){
         treeNodes.add(node);
     }
 
@@ -196,7 +177,7 @@ public class DecisionTree {
 
     }
 
-    public void Branching(TreeNode node, BranchingCriteria criteria, List<TreeNode> children){
+    public void Branching(treeNode node, BranchingCriteria criteria, List<treeNode> children){
 
     }
 

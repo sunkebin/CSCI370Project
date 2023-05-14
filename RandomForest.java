@@ -6,13 +6,11 @@ public class RandomForest {
     DecisionTree[] DecisionTrees;
     public static final int MAX_TREES = 10;
     Dataset Data;
-    MaxHeap maxHeap;
     List<Patient> outOfBagSample;
 
     RandomForest(){
         DecisionTrees=new DecisionTree[MAX_TREES];
         Data=null;
-        maxHeap = new MaxHeap(MAX_TREES);
     }
 
     void readFile(File f) throws IOException {
@@ -40,7 +38,7 @@ public class RandomForest {
         for (Patient t : patients) {
             PatientLinkedList.add(t);
         }
-        dt.buildDecisionTree(PatientLinkedList,0);
+        dt.buildDecisionTree(PatientLinkedList);
         return dt;
     }
 
@@ -62,11 +60,11 @@ public class RandomForest {
         for(Patient p: Data.getPatients()){
             int[] treeResult = new int[10];
             int c=0;
-            for(int i:treeResult){
-                i=maxHeap.heap[i+1].predict(p);
-                c++;
+            for(int i=0;i<10;i++){
+                treeResult[i]=DecisionTrees[i].predict(p);
+                c+=treeResult[i];
             }
-            if(c>5){ //majority vote
+            if(c>5){
                 predictResult[num]=1;
             }else {
                 predictResult[num] = 0;

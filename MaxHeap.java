@@ -1,14 +1,14 @@
 public class MaxHeap {
-    DecisionTree[] heap;
+    treeNode[] heap;
     int size;
     int maxSize;
 
     public MaxHeap(int maxSize) {
         this.maxSize = maxSize;
         this.size = 0;
-        this.heap = new DecisionTree[maxSize + 1];
-        this.heap[0] = new DecisionTree();
-        this.heap[0].impurity=Integer.MAX_VALUE;
+        this.heap = new treeNode[maxSize + 1];
+        this.heap[0] = new treeNode();
+        this.heap[0].score=Integer.MAX_VALUE;
     }
 
     private int parent(int pos) {
@@ -28,13 +28,13 @@ public class MaxHeap {
     }
 
     private void swap(int pos1, int pos2) {
-    	DecisionTree temp = heap[pos1];
+    	treeNode temp = heap[pos1];
         heap[pos1] = heap[pos2];
         heap[pos2] = temp;
     }
 
     private boolean shouldSwap(int pos1, int pos2) {
-        return heap[pos1].getImpurity() < heap[pos2].getImpurity();
+        return heap[pos1].score< heap[pos2].score;
     }
 
     private void maxHeapify(int pos) {
@@ -58,21 +58,21 @@ public class MaxHeap {
         }
     }
 
-    public void insert(DecisionTree element) {
+    public void insert(treeNode element) {
         if (size >= maxSize)
             return;
 
         heap[++size] = element;
         int current = size;
 
-        while (heap[current].impurity > heap[parent(current)].impurity) {
+        while (heap[current].score > heap[parent(current)].score) {
             swap(current, parent(current));
             current = parent(current);
         }
     }
 
-    public DecisionTree remove() {
-        DecisionTree removed = heap[1];
+    public treeNode remove() {
+        treeNode removed = heap[1];
         heap[1] = heap[size--];
         maxHeapify(1);
         return removed;

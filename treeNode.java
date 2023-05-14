@@ -8,15 +8,22 @@ public class treeNode {
 	BranchingCriteria Branch;
 	LinkedList<Patient> leftPatients;
 	LinkedList<Patient> rightPatients;
-	double score;
+	int score;
+
  	
-	treeNode(BranchingCriteria b, double s){
+	treeNode(BranchingCriteria b, int s){
 		Branch=b;
 		leftPatients= new LinkedList<Patient>();
 		rightPatients= new LinkedList<Patient>();
 		score=s;
 	}
-	
+	treeNode(){
+		Branch=new BranchingCriteria("dummy",0.0);
+		leftPatients= new LinkedList<Patient>();
+		rightPatients= new LinkedList<Patient>();
+		score=0;
+	}
+
 	void print(BufferedWriter w) throws IOException {
 		w.write(Branch.Name+"; "+Branch.Value+"->");
 	}
