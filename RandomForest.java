@@ -1,26 +1,32 @@
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
 public class RandomForest {
-    DecisionTree[] DecisionTrees;
+    DecisionTree[] DecisionTrees = new DecisionTree[MAX_TREES];
     public static final int MAX_TREES = 10;
     Dataset Data;
     MaxHeap maxHeap;
-    List<Patient> outOfBagSample;
+    List<Patient> outOfBagSample = new ArrayList<>();
 
-    RandomForest(){
-        DecisionTrees=new DecisionTree[MAX_TREES];
-        Data=null;
+    RandomForest(Dataset data){
+        //DecisionTrees=new DecisionTree[MAX_TREES];
+        Data=data;
         maxHeap = new MaxHeap(MAX_TREES);
     }
 
-    void readFile(File f) throws IOException {
-        Data=Data.readFile(f);
+    void readFile(File f) {
+        try {
+            Data=Data.readFile(f);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    void RandomForestAlg(){
-        for(int i=0; i<MAX_TREES; i++){
+    public void RandomForestAlg(){
+        for(int i=0; i<Data.totalNumber; i++){
             DecisionTrees[i]=obtainTree();
         }
     }
@@ -28,10 +34,10 @@ public class RandomForest {
     public DecisionTree obtainTree() {
         Random random = new Random();
         //bootstrapping sample
-        List<Patient> patients = new ArrayList<Patient>(Arrays.asList(Data.getPatients()));
+        List<Patient> patients = Data.getPatients();//new ArrayList<Patient>(Arrays.asList(Data.getPatients()));
         List<Patient> bootStrapPatients = createBootStrap(patients, random);
 
-        List<Patient> outOfBagPatients = new ArrayList<Patient>(Arrays.asList(Data.getPatients()));
+        List<Patient> outOfBagPatients = Data.getPatients();//new ArrayList<Patient>(Arrays.asList(Data.getPatients()));
         outOfBagPatients.removeAll(bootStrapPatients);
         outOfBagSample.addAll(outOfBagPatients);
 
@@ -57,7 +63,7 @@ public class RandomForest {
 
     int[] predict(){
         int[] predictResult=new int[Data.getTotalNumber()];
-        DecisionTrees=readTree();
+        //DecisionTrees=//readTree();
         int num = 0;
         for(Patient p: Data.getPatients()){
             int[] treeResult = new int[10];
@@ -75,7 +81,7 @@ public class RandomForest {
         return predictResult;
     }
 
-    private DecisionTree[] readTree() {
-
+    public DecisionTree[] getDecisionTrees() {
+        return DecisionTrees;
     }
 }
