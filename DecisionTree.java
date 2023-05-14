@@ -3,6 +3,7 @@ import java.util.*;
 public class DecisionTree {
     public static final int HEIGHT_LIMIT = 10;
     public static final int MAX_LEAVES = (int) Math.pow(2, 10);
+    MaxHeap maxHeap = new MaxHeap(MAX_LEAVES);
     int impurity = 1;
     List<TreeNode> treeNodes;
     TreeNode root;
@@ -138,9 +139,46 @@ public class DecisionTree {
         return false;
     }
 
-    public void predict(Patient patient){
+    public int predict(Patient patient) {
+        TreeNode curr = root;
 
+        while (!curr.isLeaf()) {
+            String criterionName = curr.Branch.getName();
+            double criterionValue = curr.Branch.getValue();
+
+            if (patient.getCriterionValue(criterionName) <= criterionValue) {
+                curr = curr.getLeftPatients();
+            } else {
+                curr = curr.getRightPatients();
+            }
+        }
+
+        // Count the number of left and right branches
+        int leftCount = countBranches(curr, true);
+        int rightCount = countBranches(curr, false);
+
+        // Make prediction based on majority class
+        if (leftCount <= rightCount) {
+            return 0;  // Predict "no diabetes"
+        } else {
+            return 1;  // Predict "diabetes"
+        }
     }
+
+    private int countBranches(TreeNode node, boolean isLeft) {
+        if (node.isLeaf()) {
+            return isLeft ? 1 : 0;
+        }
+
+        int count = 0;
+        if (isLeft) {
+            count += countBranches(node.getLeftChild(), true);
+        } else {
+            count += countBranches(node.getRightChild(), false);
+        }
+        return count;
+    }
+
 
     public void addNode(TreeNode node){
         treeNodes.add(node);
@@ -160,5 +198,9 @@ public class DecisionTree {
 
     public void Branching(TreeNode node, BranchingCriteria criteria, List<TreeNode> children){
 
+    }
+
+    public double getImpurity() {
+        return impurity;
     }
 }

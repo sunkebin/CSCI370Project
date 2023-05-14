@@ -6,14 +6,12 @@ import java.util.List;
 
 public class TreeNode {
 	BranchingCriteria Branch;
-	LinkedList<Patient> AllPatients;
 	LinkedList<Patient> leftPatients;
 	LinkedList<Patient> rightPatients;
 	double score;
  	
 	TreeNode(BranchingCriteria b, double s){
 		Branch=b;
-		AllPatients=new LinkedList<Patient>();
 		leftPatients= new LinkedList<Patient>();
 		rightPatients= new LinkedList<Patient>();
 		score=s;
@@ -22,7 +20,13 @@ public class TreeNode {
 	void print(BufferedWriter w) throws IOException {
 		w.write(Branch.Name+"; "+Branch.Value+"->");
 	}
+	public LinkedList<Patient> getLeftPatients() {
+		return leftPatients;
+	}
 
+	public LinkedList<Patient> getRightPatients() {
+		return rightPatients;
+	}
 	public boolean isLeaf() {
 		return leftPatients.isEmpty() && rightPatients.isEmpty();
 	}

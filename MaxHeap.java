@@ -33,6 +33,10 @@ public class MaxHeap {
         heap[pos2] = temp;
     }
 
+    private boolean shouldSwap(int pos1, int pos2) {
+        return heap[pos1].getImpurity() < heap[pos2].getImpurity();
+    }
+
     private void maxHeapify(int pos) {
         if (isLeaf(pos))
             return;
@@ -42,10 +46,10 @@ public class MaxHeap {
 
         int largest = pos;
 
-        if (left <= size && (1-heap[left].impurity) > (1-heap[largest].impurity))
+        if (left <= size && shouldSwap(left, largest))
             largest = left;
 
-        if (right <= size && (1-heap[right].impurity) > (1-heap[largest].impurity))
+        if (right <= size && shouldSwap(right, largest))
             largest = right;
 
         if (largest != pos) {

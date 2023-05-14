@@ -4,13 +4,15 @@ import java.util.*;
 
 public class RandomForest {
     DecisionTree[] DecisionTrees;
+    public static final int MAX_TREES = 10;
     Dataset Data;
     MaxHeap maxHeap;
+    List<Patient> outOfBagSample;
 
     RandomForest(){
-        DecisionTrees=new DecisionTree[10];
+        DecisionTrees=new DecisionTree[MAX_TREES];
         Data=null;
-        maxHeap=new MaxHeap(11);
+        maxHeap = new MaxHeap(MAX_TREES);
     }
 
     void readFile(File f) throws IOException {
@@ -18,29 +20,39 @@ public class RandomForest {
     }
 
     void RandomForestAlg(){
-        for(int i=0; i<10; i++){
+        for(int i=0; i<MAX_TREES; i++){
             DecisionTrees[i]=obtainTree();
-            maxHeap.insert(DecisionTrees[i]);
         }
     }
 
-    private DecisionTree obtainTree() {
+    public DecisionTree obtainTree() {
         Random random = new Random();
-        List<Patient> patients =new ArrayList<Patient>(Arrays.asList(Data.getPatients()));
-        List<Patient> test =new ArrayList<Patient>();
-        int randomInt = random.nextInt(patients.size()/3);//test should be small
-        for(int i=0; i<randomInt;i++){
-            int r=random.nextInt(patients.size());
-            test.add(patients.get(r));
-            patients.remove(r);
-        }//up to now, patients is sub dataset for obtain a tree; test is sub dataset for testing
+        //bootstrapping sample
+        List<Patient> patients = new ArrayList<Patient>(Arrays.asList(Data.getPatients()));
+        List<Patient> bootStrapPatients = createBootStrap(patients, random);
+
+        List<Patient> outOfBagPatients = new ArrayList<Patient>(Arrays.asList(Data.getPatients()));
+        outOfBagPatients.removeAll(bootStrapPatients);
+        outOfBagSample.addAll(outOfBagPatients);
+
         DecisionTree dt=new DecisionTree();
-        LinkedList<Patient> PLL = new LinkedList<>();
+        LinkedList<Patient> PatientLinkedList = new LinkedList<>();
         for (Patient t : patients) {
-            PLL.add(t);
+            PatientLinkedList.add(t);
         }
-        dt.buildDecisionTree(PLL,0);
+        dt.buildDecisionTree(PatientLinkedList,0);
         return dt;
+    }
+
+    public List<Patient> createBootStrap(List<Patient> data, Random random){
+        List<Patient> bootStrapPatients = new ArrayList<>();
+
+        for(int i=0; i < data.size(); i++){
+            int randInt = random.nextInt(data.size());
+            bootStrapPatients.add(data.get(randInt));
+        }
+
+        return bootStrapPatients;
     }
 
     int[] predict(){
