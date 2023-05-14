@@ -3,7 +3,7 @@ import java.awt.*;
 import java.io.IOException;
 public class GUI extends JFrame {
       
-	public void DateGui() throws NumberFormatException, IOException {
+	public void Gui() throws NumberFormatException, IOException {
 		JFrame jf= new JFrame("swname");
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.setSize(500,500);
