@@ -1,18 +1,18 @@
 package src;
 
 public class Patient {
-    public int patientID;
-    public int age;
-    public int gender;
-    public double bmi;
-    public double bloodPressure;
-    public double totalSerumCholesterol;
-    public double ldl;
-    public double hdl;
-    public double tch;
-    public double ltg;
-    public double glu;
-    public double diseaseProgressionValue;
+    private int patientID;
+    private int age;
+    private int gender;
+    private double bmi;
+    private double bloodPressure;
+    private double totalSerumCholesterol;
+    private double ldl;
+    private double hdl;
+    private double tch;
+    private double ltg;
+    private double glu;
+    private double diseaseProgressionValue;
 
     public Patient(int age, int gender, double bmi, double bloodPressure, double totalSerumCholesterol, double ldl, double hdl, double tch, double ltg, double glu, double diseaseProgressionValue) {
         this.age = age;

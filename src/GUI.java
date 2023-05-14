@@ -1,10 +1,11 @@
 package src;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 public class GUI extends JFrame {
       
-	public void Gui() throws NumberFormatException, IOException {
+	public void Gui() throws IOException {
 		JFrame jf= new JFrame("swname");
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.setSize(500,500);
@@ -16,7 +17,7 @@ public class GUI extends JFrame {
 	    jf.setVisible(true);
 	}
 
-	   public void createFileMenu(JFrame jf ) {
+	   private void createFileMenu(JFrame jf ) {
 	      JMenuItem   item;
 	      JMenuBar    menuBar  = new JMenuBar();
 	      JMenu       fileMenu = new JMenu("Menu");

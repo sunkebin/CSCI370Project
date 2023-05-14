@@ -45,7 +45,7 @@ public class Dataset {
         this.datasetID = datasetID;
     }
 
-    //Method to create new src.Dataset
+    //Method to create new Dataset
     public Dataset NewDataSet(List<Patient> patients, int totalNumber, int datasetID) {
         Dataset newDataset =  new Dataset(patients, totalNumber, datasetID);
         return newDataset;
@@ -84,7 +84,7 @@ public class Dataset {
             patientList.add(patient);
         }
         reader.close();
-
+        
         calculateAndStoreMedians(patientList);
 
         //creating dataset
@@ -210,4 +210,6 @@ public class Dataset {
             return values.get(middle);
         }
     }
+
+
 }

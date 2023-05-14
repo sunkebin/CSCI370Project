@@ -7,8 +7,8 @@ public class DecisionTree {
     public static final int MAX_LEAVES = (int) Math.pow(2, 10);
     MaxHeap maxHeap = new MaxHeap(MAX_LEAVES);
     int impurity = 1;
-    public List<treeNode> treeNodes;
-    public treeNode root;
+    List<treeNode> treeNodes;
+    treeNode root;
     List<String> criteria = new ArrayList<>();
     double Accuracy=0.0;
 
@@ -69,7 +69,7 @@ public class DecisionTree {
     }
 
     public BranchingCriteria learnBranchingCriteria(LinkedList<Patient> data) {
-        String bestCriteriaName = null;
+        String bestCriteriaName=new String();
         double bestCriteriaValue = Double.NaN;
         // Calculate and compare metrics for each criterion
         double bestImpurity = Double.POSITIVE_INFINITY; // Initialize with a high value to find the minimum impurity
@@ -84,7 +84,6 @@ public class DecisionTree {
                 double value = patient.getCriterionValue(criterion);
                 criterionValues.add(value);
             }
-
             // Sort the criterion values and calculate the median
             Collections.sort(criterionValues);
             double median = criterionValues.get(criterionValues.size() / 2);
@@ -167,6 +166,14 @@ public class DecisionTree {
 
     public void addNode(treeNode node){
         treeNodes.add(node);
+    }
+
+    public void Report(){
+
+    }
+
+    public void Branching(treeNode node, BranchingCriteria criteria, List<treeNode> children){
+
     }
 
     public double getImpurity() {

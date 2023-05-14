@@ -27,7 +27,7 @@ public class RandomForest {
         WriteTree();
     }
 
-    public void WriteTree() {
+    private void WriteTree() {
         try {
             File file = new File("log.txt");
             if (file.createNewFile()) {
@@ -56,15 +56,16 @@ public class RandomForest {
     }
 
     public DecisionTree obtainTree() {
-        Random random = new Random();
         //bootstrapping sample
-        List<Patient> patients = Data.getPatients();
-        List<Patient> bootStrapPatients = createBootStrap(patients, random);
-
-        List<Patient> outOfBagPatients = Data.getPatients();
+        List<Patient> patients=new ArrayList<Patient>();
+        patients.addAll(Data.getPatients());
+        
+        List<Patient> bootStrapPatients = createBootStrap(patients);
+        
+        List<Patient> outOfBagPatients=new ArrayList<Patient>();
+        patients.addAll(Data.getPatients());
         outOfBagPatients.removeAll(bootStrapPatients);
         outOfBagSample.addAll(outOfBagPatients);
-
         DecisionTree dt=new DecisionTree();
         LinkedList<Patient> PatientLinkedList = new LinkedList<>();
         for (Patient t : patients) {
@@ -74,7 +75,9 @@ public class RandomForest {
         return dt;
     }
 
-    public List<Patient> createBootStrap(List<Patient> data, Random random){
+    public List<Patient> createBootStrap(List<Patient> data){
+
+        Random random = new Random();
         List<Patient> bootStrapPatients = new ArrayList<>();
 
         for(int i=0; i < data.size(); i++){
@@ -123,7 +126,7 @@ public class RandomForest {
         }
     }
 
-    public DecisionTree[] readTree(File f) throws IOException {
+    private DecisionTree[] readTree(File f) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(f));
         int num=Integer.valueOf(reader.readLine());
         DecisionTree[] dts = new DecisionTree[num];
