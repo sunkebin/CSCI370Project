@@ -7,8 +7,8 @@ public class DecisionTree {
     public static final int MAX_LEAVES = (int) Math.pow(2, 10);
     MaxHeap maxHeap = new MaxHeap(MAX_LEAVES);
     int impurity = 1;
-    List<treeNode> treeNodes;
-    treeNode root;
+    public List<treeNode> treeNodes;
+    public treeNode root;
     List<String> criteria = new ArrayList<>();
     double Accuracy=0.0;
 

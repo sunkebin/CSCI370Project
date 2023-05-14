@@ -1,9 +1,13 @@
 package src.test;
 
 import org.junit.jupiter.api.Test;
+import src.BranchingCriteria;
+import src.DecisionTree;
 import src.Patient;
+import src.treeNode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,21 +36,94 @@ class DecisionTreeTest {
 
     @Test
     void buildDecisionTree() {
+        // Create a DecisionTree object
+        DecisionTree decisionTree = new DecisionTree();
+        // Build the decision tree
+        decisionTree.buildDecisionTree(testPatientData);
+
+        // Assert that the decision tree is not null
+        assertNotNull(decisionTree.root);
+        assertNotNull(decisionTree.treeNodes);
     }
 
     @Test
     void splitData() {
+        // Create a DecisionTree object
+        DecisionTree decisionTree = new DecisionTree();
+
+        // Create a LinkedList of Patient objects (your dataset)
+        LinkedList<Patient> data = new LinkedList<>();
+        data.addAll(testPatientData);
+
+        // Learn branching criteria
+        BranchingCriteria branchingCriteria = decisionTree.learnBranchingCriteria(data);
+
+        // Split the data based on the branching criteria
+        treeNode node = decisionTree.splitData(data, branchingCriteria);
+
+        // Assert that the node and subsets are not null
+        assertNotNull(node);
+        assertNotNull(node.getLeftPatients());
+        assertNotNull(node.getRightPatients());
     }
 
     @Test
     void learnBranchingCriteria() {
+        // Create a DecisionTree object
+        DecisionTree decisionTree = new DecisionTree();
+
+        // Create a LinkedList of Patient objects (your dataset)
+        LinkedList<Patient> data = new LinkedList<>();
+        data.addAll(testPatientData);
+
+        // Learn branching criteria
+        BranchingCriteria branchingCriteria = decisionTree.learnBranchingCriteria(data);
+
+        // Assert that the branching criteria is not null
+        assertNotNull(branchingCriteria);
+        assertNotNull(branchingCriteria.getName());
+        assertNotNull(branchingCriteria.getValue());
+        assertTrue(decisionTree.getAvailableCriteria().contains(branchingCriteria.getName()));
     }
 
     @Test
     void calculateImpurity() {
+        // Create a DecisionTree object
+        DecisionTree decisionTree = new DecisionTree();
+
+        // Create a LinkedList of Patient objects (your dataset)
+        LinkedList<Patient> data = new LinkedList<>();
+        data.addAll(testPatientData);
+
+        // Learn branching criteria
+        BranchingCriteria branchingCriteria = decisionTree.learnBranchingCriteria(data);
+
+        // Calculate impurity
+        double impurity = decisionTree.calculateImpurity(data, branchingCriteria.getName(), branchingCriteria.getValue());
+
+        // Assert that the impurity is a valid value
+        assertTrue(impurity >= 0.0);
+        assertTrue(impurity <= 1.0);
     }
 
     @Test
     void predict() {
+        // Create a DecisionTree object
+        DecisionTree decisionTree = new DecisionTree();
+
+        // Create a LinkedList of Patient objects (your dataset)
+        LinkedList<Patient> data = new LinkedList<>();
+        data.addAll(testPatientData);
+
+        // Learn branching criteria and build the decision tree
+        BranchingCriteria branchingCriteria = decisionTree.learnBranchingCriteria(data);
+        decisionTree.buildDecisionTree(data);
+
+        // Predict the score for a patient
+        int predictedScore = decisionTree.predict(newPatient1);
+
+        // Assert that the predicted score is within the expected range
+        assertTrue(predictedScore >= Integer.MIN_VALUE);
+        assertTrue(predictedScore <= Integer.MAX_VALUE);
     }
 }

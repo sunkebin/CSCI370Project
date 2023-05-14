@@ -1,6 +1,7 @@
 package src.test;
 
 import org.junit.jupiter.api.Test;
+import src.Dataset;
 import src.Patient;
 
 import java.util.ArrayList;
@@ -32,6 +33,27 @@ class DatasetTest {
     }
 
     @Test
-    void validatePatientData() {
+    void validatePatientData() throws Exception {
+        // Create a test patient
+        Patient testPatient = new Patient(59, 2, 32.1, 100, 0, 157, 93.0, 37.5, 4.0, 4.859, 87);
+
+        // Calculate and store the medians
+        Dataset dataset = new Dataset(testPatientData, 6, 0); // Create an instance of the Dataset class
+        dataset.calculateAndStoreMedians(testPatientData); // Call the method on the dataset object
+
+        // Validate the test patient data
+        Patient validatedPatient = dataset.validatePatientData(testPatient);
+
+        // Assertions for each field
+        assertEquals(59, validatedPatient.getAge());
+        assertEquals(2, validatedPatient.getGender());
+        assertEquals(32.1, validatedPatient.getBmi());
+        assertEquals(100, validatedPatient.getBloodPressure());
+        assertEquals(0, validatedPatient.getTotalSerumCholesterol());
+        assertEquals(157, validatedPatient.getLdl());
+        assertEquals(93.0, validatedPatient.getHdl());
+        assertEquals(37.5, validatedPatient.getTch());
+        assertEquals(4.0, validatedPatient.getLtg());
+        assertEquals(4.859, validatedPatient.getGlu());
     }
 }

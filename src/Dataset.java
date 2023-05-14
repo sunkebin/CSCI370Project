@@ -210,6 +210,4 @@ public class Dataset {
             return values.get(middle);
         }
     }
-
-
 }
