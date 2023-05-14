@@ -1,5 +1,6 @@
+package src;
+
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 public class GUI extends JFrame {
       
@@ -15,7 +16,7 @@ public class GUI extends JFrame {
 	    jf.setVisible(true);
 	}
 
-	   private void createFileMenu(JFrame jf ) {
+	   public void createFileMenu(JFrame jf ) {
 	      JMenuItem   item;
 	      JMenuBar    menuBar  = new JMenuBar();
 	      JMenu       fileMenu = new JMenu("Menu");

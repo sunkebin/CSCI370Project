@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 
 public class DecisionTree {
@@ -165,14 +167,6 @@ public class DecisionTree {
 
     public void addNode(treeNode node){
         treeNodes.add(node);
-    }
-
-    public void Report(){
-
-    }
-
-    public void Branching(treeNode node, BranchingCriteria criteria, List<treeNode> children){
-
     }
 
     public double getImpurity() {

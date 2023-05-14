@@ -1,7 +1,8 @@
+package src;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 public class GUIhandler implements ActionListener {
@@ -43,7 +44,7 @@ public class GUIhandler implements ActionListener {
       }
    }
 
-    private void readSourcePredict(File selectedFile)  throws NumberFormatException, IOException{
+    public void readSourcePredict(File selectedFile)  throws NumberFormatException, IOException{
         RandomForest rf=new RandomForest();
         int[] predictionR=rf.predict(selectedFile);
         JTextArea textArea = new JTextArea(10, 20);
@@ -52,12 +53,12 @@ public class GUIhandler implements ActionListener {
         jframe.getContentPane().add(scrollPane2);
         for(int i=0;i<predictionR.length;i++){
             if(predictionR[i]==1){
-                textArea.append("Patient "+i+" has a high possibility to get exacerbation of diabetes.\n");
-            }else textArea.append("Patient "+i+" has a low possibility to get exacerbation of diabetes.\n");
+                textArea.append("src.Patient "+i+" has a high possibility to get exacerbation of diabetes.\n");
+            }else textArea.append("src.Patient "+i+" has a low possibility to get exacerbation of diabetes.\n");
         }
     }
 
-    private void readSource(File chosenFile) throws NumberFormatException, IOException {
+    public void readSource(File chosenFile) throws NumberFormatException, IOException {
         RandomForest rf=new RandomForest();
 	    rf.readFile(chosenFile);
         rf.RandomForestAlg();

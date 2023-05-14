@@ -1,3 +1,5 @@
+package src;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -43,7 +45,7 @@ public class Dataset {
         this.datasetID = datasetID;
     }
 
-    //Method to create new Dataset
+    //Method to create new src.Dataset
     public Dataset NewDataSet(List<Patient> patients, int totalNumber, int datasetID) {
         Dataset newDataset =  new Dataset(patients, totalNumber, datasetID);
         return newDataset;
