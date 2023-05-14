@@ -93,11 +93,26 @@ public class Dataset {
     //Method to validate patient data
     public Patient validatePatientData(Patient patient) throws Exception {
         // Check age, BMI, and other integer/double fields
-        if (patient.getAge() <= 0 || patient.getGender() <= 0 || patient.getBmi() <= 0 ||
-                patient.getBloodPressure() <= 0 || patient.getTotalSerumCholesterol() <= 0 || patient.getLdl() <= 0 ||
-                patient.getHdl() <= 0 || patient.getTch() <= 0 ||
-                patient.getLtg() <= 0 || patient.getGlu() <= 0) {
+        if (patient.getAge() <= 0){
+            if (patient.getGender() <= 0){
+                if (patient.getBmi() <= 0) {
+                    if (patient.getBloodPressure() <= 0){
+                        if (patient.getTotalSerumCholesterol() <= 0) {
+                            if (patient.getLdl() <= 0) {
+                                if (patient.getHdl() <= 0) {
+                                    if (patient.getTch() <= 0) {
+                                        if (patient.getLtg() <= 0) {
+                                            if (patient.getGlu() <= 0) {
             throw new Exception("Invalid patient data: age, BMI, or lab values are negative or 0");
+        }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         // if All checks passed, patient data is valid
         return patient;
