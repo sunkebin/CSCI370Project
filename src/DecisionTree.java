@@ -26,7 +26,7 @@ public class DecisionTree {
 
     public void buildDecisionTree(LinkedList<Patient> data) {
         int counter=0;
-        while (counter <MAX_LEAVES || impurity <= 0) {
+        while (counter <11 || impurity <= 0) {
             BranchingCriteria branchingCriteria = learnBranchingCriteria(data);
             treeNode node = splitData(data, branchingCriteria);
             maxHeap.insert(node);
