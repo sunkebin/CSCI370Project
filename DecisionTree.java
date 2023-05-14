@@ -4,11 +4,11 @@ public class DecisionTree {
     public static final int HEIGHT_LIMIT = 10;
     public static final int MAX_LEAVES = (int) Math.pow(2, 10);
     int impurity = 1;
-    List<TreeNode> treeNodes;
-    TreeNode root;
+    List<treeNode> treeNodes;
+    treeNode root;
     List<String> criteria = new ArrayList<>();
 
-    public DecisionTree(List<TreeNode> treeNodes, TreeNode root){
+    public DecisionTree(List<treeNode> treeNodes, treeNode root){
         this.treeNodes = treeNodes;
         this.root = root;
         criteria.addAll(Arrays.asList("age", "gender", "bmi", "bloodPressure", "totalSerumCholesterol","ldl", "hdl", "tch", "ltg", "glu"));
@@ -20,7 +20,7 @@ public class DecisionTree {
         criteria.addAll(Arrays.asList("age", "gender", "bmi", "bloodPressure", "totalSerumCholesterol","ldl", "hdl", "tch", "ltg", "glu"));
     }
 
-    public TreeNode buildDecisionTree(LinkedList<Patient> data, int currentHeight) {
+    public treeNode buildDecisionTree(LinkedList<Patient> data, int currentHeight) {
         if (currentHeight >= HEIGHT_LIMIT || isLeafLimitReached(root) || impurity <= 0) {
             return root;
         } else {
@@ -28,7 +28,7 @@ public class DecisionTree {
 
             List<LinkedList<Patient>> subsets = splitData(data, branchingCriteria);
 
-            List<TreeNode> subTrees = new LinkedList<>();
+            List<treeNode> subTrees = new LinkedList<>();
             for (LinkedList<Patient> subset : subsets) {
                 subTrees.add(buildDecisionTree(subset, currentHeight + 1));
             }
@@ -125,12 +125,12 @@ public class DecisionTree {
         return criteria;
     }
 
-    public boolean isLeafLimitReached(TreeNode node) {
+    public boolean isLeafLimitReached(treeNode node) {
         if (node.isLeaf()) {
             return true;
         }
 
-        for (TreeNode child : node.getChildNodes()) {
+        for (treeNode child : node.getChildNodes()) {
             if (isLeafLimitReached(child)) {
                 return true;
             }
@@ -142,7 +142,7 @@ public class DecisionTree {
 
     }
 
-    public void addNode(TreeNode node){
+    public void addNode(treeNode node){
         treeNodes.add(node);
     }
 
@@ -158,7 +158,7 @@ public class DecisionTree {
 
     }
 
-    public void Branching(TreeNode node, BranchingCriteria criteria, List<TreeNode> children){
+    public void Branching(treeNode node, BranchingCriteria criteria, List<treeNode> children){
 
     }
 }

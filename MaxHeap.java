@@ -1,14 +1,16 @@
+import javax.swing.tree.TreeNode;
+
 public class MaxHeap {
-    DecisionTree[] heap;
+    treeNode[] heap;
     int size;
     int maxSize;
 
     public MaxHeap(int maxSize) {
         this.maxSize = maxSize;
         this.size = 0;
-        this.heap = new DecisionTree[maxSize + 1];
-        this.heap[0] = new DecisionTree();
-        this.heap[0].impurity=Integer.MAX_VALUE;
+        this.heap = new treeNode[maxSize + 1];
+        this.heap[0] = new treeNode(new BranchingCriteria("dummy",0.0),Double.MAX_VALUE);
+        this.heap[0].score=Double.MAX_VALUE;
     }
 
     private int parent(int pos) {
@@ -28,7 +30,7 @@ public class MaxHeap {
     }
 
     private void swap(int pos1, int pos2) {
-    	DecisionTree temp = heap[pos1];
+    	treeNode temp = heap[pos1];
         heap[pos1] = heap[pos2];
         heap[pos2] = temp;
     }
@@ -42,10 +44,10 @@ public class MaxHeap {
 
         int largest = pos;
 
-        if (left <= size && (1-heap[left].impurity) > (1-heap[largest].impurity))
+        if (left <= size && (1-heap[left].score) > (1-heap[largest].score))
             largest = left;
 
-        if (right <= size && (1-heap[right].impurity) > (1-heap[largest].impurity))
+        if (right <= size && (1-heap[right].score) > (1-heap[largest].score))
             largest = right;
 
         if (largest != pos) {
@@ -54,21 +56,21 @@ public class MaxHeap {
         }
     }
 
-    public void insert(DecisionTree element) {
+    public void insert(treeNode element) {
         if (size >= maxSize)
             return;
 
         heap[++size] = element;
         int current = size;
 
-        while (heap[current].impurity > heap[parent(current)].impurity) {
+        while (heap[current].score > heap[parent(current)].score) {
             swap(current, parent(current));
             current = parent(current);
         }
     }
 
-    public DecisionTree remove() {
-        DecisionTree removed = heap[1];
+    public treeNode remove() {
+        treeNode removed = heap[1];
         heap[1] = heap[size--];
         maxHeapify(1);
         return removed;
