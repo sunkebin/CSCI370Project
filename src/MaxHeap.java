@@ -13,33 +13,33 @@ public class MaxHeap {
         this.heap[0].score=Integer.MAX_VALUE;
     }
 
-    private int parent(int pos) {
+    public int parent(int pos) {
         return pos / 2;
     }
 
-    private int leftChild(int pos) {
+    public int leftChild(int pos) {
         return 2 * pos;
     }
 
-    private int rightChild(int pos) {
+    public int rightChild(int pos) {
         return (2 * pos) + 1;
     }
 
-    private boolean isLeaf(int pos) {
+    public boolean isLeaf(int pos) {
         return pos > (size / 2) && pos <= size;
     }
 
-    private void swap(int pos1, int pos2) {
+    public void swap(int pos1, int pos2) {
     	treeNode temp = heap[pos1];
         heap[pos1] = heap[pos2];
         heap[pos2] = temp;
     }
 
-    private boolean shouldSwap(int pos1, int pos2) {
+    public boolean shouldSwap(int pos1, int pos2) {
         return heap[pos1].score< heap[pos2].score;
     }
 
-    private void maxHeapify(int pos) {
+    public void maxHeapify(int pos) {
         if (isLeaf(pos))
             return;
 
