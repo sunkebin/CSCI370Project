@@ -27,7 +27,7 @@ public class RandomForest {
         WriteTree();
     }
 
-    private void WriteTree() {
+    public void WriteTree() {
         try {
             File file = new File("log.txt");
             if (file.createNewFile()) {
@@ -127,7 +127,7 @@ public class RandomForest {
         }
     }
 
-    private DecisionTree[] readTree() throws IOException {
+    public DecisionTree[] readTree() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("log.txt"));
         int num=Integer.valueOf(reader.readLine());
         DecisionTree[] dts = new DecisionTree[num];

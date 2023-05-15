@@ -45,7 +45,7 @@ public class GUIhandler implements ActionListener {
       }
    }
 
-    private void readSourcePredict(File selectedFile)  throws NumberFormatException, IOException{
+    public void readSourcePredict(File selectedFile)  throws NumberFormatException, IOException{
         RandomForest rf=new RandomForest();
         int[] predictionR=rf.predict(selectedFile);
         JTextArea textArea = new JTextArea(10, 20);
@@ -59,7 +59,7 @@ public class GUIhandler implements ActionListener {
         }
     }
 
-    private void readSource(File chosenFile) throws NumberFormatException, IOException {
+    public void readSource(File chosenFile) throws NumberFormatException, IOException {
         RandomForest rf=new RandomForest();
 	    rf.readFile(chosenFile);
         rf.RandomForestAlg();
