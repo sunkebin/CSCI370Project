@@ -11,12 +11,15 @@ public class DecisionTree {
     public treeNode root;
     public List<String> criteria = new ArrayList<>();
     public double Accuracy;
+    public List<String> availableCriteria;
+
 
     public DecisionTree(List<treeNode> treeNodes, treeNode root){
         this.treeNodes = treeNodes;
         this.root = root;
         Accuracy=0.0;
         criteria.addAll(Arrays.asList("age", "gender", "bmi", "bloodPressure", "totalSerumCholesterol","ldl", "hdl", "tch", "ltg", "glu"));
+        availableCriteria = new ArrayList<>(criteria);
     }
 
     public DecisionTree(){
@@ -24,6 +27,7 @@ public class DecisionTree {
         this.root = null;
         Accuracy=0.0;
         criteria.addAll(Arrays.asList("age", "gender", "bmi", "bloodPressure", "totalSerumCholesterol","ldl", "hdl", "tch", "ltg", "glu"));
+        availableCriteria = new ArrayList<>(criteria);
     }
 
     public DecisionTree(LinkedList<Patient> patientData){
@@ -32,6 +36,7 @@ public class DecisionTree {
         this.treeNodes.add(this.root);
         Accuracy=0.0;
         criteria.addAll(Arrays.asList("age", "gender", "bmi", "bloodPressure", "totalSerumCholesterol","ldl", "hdl", "tch", "ltg", "glu"));
+        availableCriteria = new ArrayList<>(criteria);
     }
 
     public void buildDecisionTree(LinkedList<Patient> data) {
@@ -85,7 +90,6 @@ public class DecisionTree {
         double bestImpurity = Double.POSITIVE_INFINITY; // Initialize with a high value to find the minimum impurity
 
         // Evaluate each criterion and choose the one with the lowest impurity
-        List<String> availableCriteria = getAvailableCriteria();
         for (String criterion : availableCriteria) {
             List<Double> criterionValues = new ArrayList<>();
 
@@ -143,7 +147,7 @@ public class DecisionTree {
     }
 
     public List<String> getAvailableCriteria() {
-        return new ArrayList<>(criteria);
+        return criteria;
     }
 
     public boolean isLeafLimitReached(treeNode node) {

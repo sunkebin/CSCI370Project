@@ -5,7 +5,7 @@ import java.util.*;
 
 public class RandomForest {
     public DecisionTree[] DecisionTrees;
-    public static final int MAX_TREES = 10;
+    public static final int MAX_TREES = 500;
     public Dataset Data;
     public List<Patient> outOfBagSample;
 
@@ -94,11 +94,11 @@ public class RandomForest {
         int[] predictResult=new int[Data.getTotalNumber()];
         int num = 0;
         for(Patient p: Data.getPatients()){
-            int[] treeResult = new int[10];
+            int[] treeResult = new int[500];
             double c=0.0;
-            for(int i=0;i<10;i++){
+            for(int i=0;i<500;i++){
                 treeResult[i]=DecisionTrees[i].predict(p);
-                c+=treeResult[i]/10.0;
+                c+=treeResult[i]/500.0;
             }
             if(c>-40){
                 predictResult[num]=1;
