@@ -5,12 +5,12 @@ import java.util.*;
 public class DecisionTree {
     public static final int HEIGHT_LIMIT = 10;
     public static final int MAX_LEAVES = (int) Math.pow(2, 10);
-    MaxHeap maxHeap = new MaxHeap(MAX_LEAVES);
-    int impurity = 1;
-    List<treeNode> treeNodes;
-    treeNode root;
-    List<String> criteria = new ArrayList<>();
-    double Accuracy=0.0;
+    public MaxHeap maxHeap = new MaxHeap(MAX_LEAVES);
+    public int impurity = 1;
+    public List<treeNode> treeNodes;
+    public treeNode root;
+    public List<String> criteria = new ArrayList<>();
+    public double Accuracy=0.0;
 
     public DecisionTree(List<treeNode> treeNodes, treeNode root){
         this.treeNodes = treeNodes;
@@ -19,8 +19,15 @@ public class DecisionTree {
     }
 
     public DecisionTree(){
-        this.treeNodes = null;
+        this.treeNodes = new LinkedList<>();
         this.root = null;
+        criteria.addAll(Arrays.asList("age", "gender", "bmi", "bloodPressure", "totalSerumCholesterol","ldl", "hdl", "tch", "ltg", "glu"));
+    }
+
+    public DecisionTree(LinkedList<Patient> patientData){
+        this.treeNodes = new LinkedList<>();
+        this.root = new treeNode(patientData);
+        this.treeNodes.add(this.root);
         criteria.addAll(Arrays.asList("age", "gender", "bmi", "bloodPressure", "totalSerumCholesterol","ldl", "hdl", "tch", "ltg", "glu"));
     }
 

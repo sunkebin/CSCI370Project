@@ -28,8 +28,13 @@ class DatasetTest {
         newPatient5 = new Patient(50, 1, 23, 101, 192, 125.4, 52, 4, 4.920, 80, 135);
         newPatient6 = new Patient(23, 1, 22.6, 89, 139, 64.8, 61, 2, 4.189, 68, 97);
 
-        testPatientData = new ArrayList<>();
+        testPatientData = new LinkedList<>();
         testPatientData.add(newPatient1);
+        testPatientData.add(newPatient2);
+        testPatientData.add(newPatient3);
+        testPatientData.add(newPatient4);
+        testPatientData.add(newPatient5);
+        testPatientData.add(newPatient6);
     }
 
     @Test

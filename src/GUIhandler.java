@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 public class GUIhandler implements ActionListener {
-   JFrame jframe;
+    public JFrame jframe;
    
    public GUIhandler (JFrame jf) {
       jframe = jf;

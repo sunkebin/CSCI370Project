@@ -7,26 +7,35 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class treeNode {
-	BranchingCriteria Branch;
-	LinkedList<Patient> leftPatients;
-	LinkedList<Patient> rightPatients;
+	public BranchingCriteria Branch;
+	public List<Patient> allPatients;
+	public LinkedList<Patient> leftPatients;
+	public LinkedList<Patient> rightPatients;
 	int score;
 
- 	
-	treeNode(BranchingCriteria b, int s){
+
+	public treeNode(BranchingCriteria b, int s){
 		Branch=b;
 		leftPatients= new LinkedList<Patient>();
 		rightPatients= new LinkedList<Patient>();
 		score=s;
 	}
-	treeNode(){
+	public treeNode(){
 		Branch=new BranchingCriteria("dummy",0.0);
 		leftPatients= new LinkedList<Patient>();
 		rightPatients= new LinkedList<Patient>();
 		score=0;
 	}
 
-	void print(BufferedWriter w) throws IOException {
+	public treeNode(LinkedList<Patient> allPatients){
+		Branch=new BranchingCriteria("dummy",0.0);
+		this.allPatients = allPatients;
+		leftPatients= new LinkedList<Patient>();
+		rightPatients= new LinkedList<Patient>();
+		score=0;
+	}
+
+	public void print(BufferedWriter w) throws IOException {
 		w.write(Branch.Name+";"+Branch.Value+";"+score+",");
 	}
 	public LinkedList<Patient> getLeftPatients() {

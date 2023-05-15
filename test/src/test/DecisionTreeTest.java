@@ -20,7 +20,7 @@ class DecisionTreeTest {
     Patient newPatient4;
     Patient newPatient5;
     Patient newPatient6;
-    List<Patient> testPatientData;
+    LinkedList<Patient> testPatientData;
 
     public DecisionTreeTest() {
         newPatient1 = new Patient(59, 2, 32.1, 100, 0, 157, 93.0, 37.5, 4.0, 4.859, 87);
@@ -30,14 +30,19 @@ class DecisionTreeTest {
         newPatient5 = new Patient(50, 1, 23, 101, 192, 125.4, 52, 4, 4.920, 80, 135);
         newPatient6 = new Patient(23, 1, 22.6, 89, 139, 64.8, 61, 2, 4.189, 68, 97);
 
-        testPatientData = new ArrayList<>();
+        testPatientData = new LinkedList<>();
         testPatientData.add(newPatient1);
+        testPatientData.add(newPatient2);
+        testPatientData.add(newPatient3);
+        testPatientData.add(newPatient4);
+        testPatientData.add(newPatient5);
+        testPatientData.add(newPatient6);
     }
 
     @Test
     void buildDecisionTree() {
         // Create a DecisionTree object
-        DecisionTree decisionTree = new DecisionTree();
+        DecisionTree decisionTree = new DecisionTree(testPatientData);
         // Build the decision tree
         decisionTree.buildDecisionTree(testPatientData);
 

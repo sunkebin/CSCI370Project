@@ -17,32 +17,32 @@ public class GUI extends JFrame {
 	    jf.setVisible(true);
 	}
 
-	   public void createFileMenu(JFrame jf ) {
-	      JMenuItem   item;
-	      JMenuBar    menuBar  = new JMenuBar();
-	      JMenu       fileMenu = new JMenu("Menu");
-	      GUIhandler fmh  = new GUIhandler(jf);
+   public void createFileMenu(JFrame jf ) {
+	  JMenuItem   item;
+	  JMenuBar    menuBar  = new JMenuBar();
+	  JMenu       fileMenu = new JMenu("Menu");
+	  GUIhandler fmh  = new GUIhandler(jf);
 
-	      item = new JMenuItem("Train");
-	      item.addActionListener( fmh );
-	      fileMenu.add( item );
+	  item = new JMenuItem("Train");
+	  item.addActionListener( fmh );
+	  fileMenu.add( item );
 
-	      fileMenu.addSeparator();         
-	    
-	      item = new JMenuItem("Predict");    
-	      item.addActionListener( fmh );
-	      fileMenu.add( item );
+	  fileMenu.addSeparator();
 
-	      fileMenu.addSeparator();      
-	      
-	      item = new JMenuItem("Quit");   
-	      item.addActionListener( fmh );
-	      fileMenu.add( item );
+	  item = new JMenuItem("Predict");
+	  item.addActionListener( fmh );
+	  fileMenu.add( item );
 
-	      jf.setJMenuBar(menuBar);
-	      menuBar.add(fileMenu);
-	    
-	   } //createMenu
+	  fileMenu.addSeparator();
+
+	  item = new JMenuItem("Quit");
+	  item.addActionListener( fmh );
+	  fileMenu.add( item );
+
+	  jf.setJMenuBar(menuBar);
+	  menuBar.add(fileMenu);
+
+   } //createMenu
 
 
 } 

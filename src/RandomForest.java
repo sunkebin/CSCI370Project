@@ -4,23 +4,23 @@ import java.io.*;
 import java.util.*;
 
 public class RandomForest {
-    DecisionTree[] DecisionTrees;
+    public DecisionTree[] DecisionTrees;
     public static final int MAX_TREES = 10;
-    Dataset Data;
-    List<Patient> outOfBagSample;
+    public Dataset Data;
+    public List<Patient> outOfBagSample;
 
-    RandomForest(){
+    public RandomForest(){
         DecisionTrees=new DecisionTree[MAX_TREES];
         List<Patient> p =new ArrayList<Patient>();
         Data=new Dataset(p,0,0);
         outOfBagSample=new ArrayList<Patient>();
     }
 
-    void readFile(File f) throws IOException {
+    public void readFile(File f) throws IOException {
         Data=Data.readFile(f);
     }
 
-    void RandomForestAlg(){
+    public void RandomForestAlg(){
         for(int i=0; i<MAX_TREES; i++){
             DecisionTrees[i]=obtainTree();
         }OOBValidation();
@@ -88,7 +88,7 @@ public class RandomForest {
         return bootStrapPatients;
     }
 
-    int[] predict(File f) throws IOException {
+    public int[] predict(File f) throws IOException {
         int[] predictResult=new int[Data.getTotalNumber()];
         DecisionTrees=readTree();
         Data=Data.readFile(f);
@@ -109,7 +109,7 @@ public class RandomForest {
         return predictResult;
     }
 
-    void OOBValidation(){
+    public void OOBValidation(){
         int[] actual=new int[outOfBagSample.size()];
         for(int i=0; i<outOfBagSample.size();i++){
             if(outOfBagSample.get(i).getDiseaseProgressionValue()>150){

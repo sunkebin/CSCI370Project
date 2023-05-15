@@ -28,6 +28,11 @@ class RandomForestTest {
 
         testPatientData = new ArrayList<>();
         testPatientData.add(newPatient1);
+        testPatientData.add(newPatient2);
+        testPatientData.add(newPatient3);
+        testPatientData.add(newPatient4);
+        testPatientData.add(newPatient5);
+        testPatientData.add(newPatient6);
     }
 
     @Test

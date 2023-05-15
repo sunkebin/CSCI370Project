@@ -1,10 +1,10 @@
 package src;
 
 public class BranchingCriteria {
-	String Name;
-	Double Value;
-	
-	BranchingCriteria(String n, double v){
+	public String Name;
+	public Double Value;
+
+	public BranchingCriteria(String n, double v){
 		Name=n;
 		Value=v;
 	}

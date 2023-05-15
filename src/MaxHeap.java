@@ -1,9 +1,9 @@
 package src;
 
 public class MaxHeap {
-    treeNode[] heap;
-    int size;
-    int maxSize;
+    public treeNode[] heap;
+    public int size;
+    public int maxSize;
 
     public MaxHeap(int maxSize) {
         this.maxSize = maxSize;
