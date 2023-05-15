@@ -63,7 +63,7 @@ public class RandomForest {
         List<Patient> bootStrapPatients = createBootStrap(patients);
         
         List<Patient> outOfBagPatients=new ArrayList<Patient>();
-        patients.addAll(Data.getPatients());
+        outOfBagPatients.addAll(Data.getPatients());
         outOfBagPatients.removeAll(bootStrapPatients);
         outOfBagSample.addAll(outOfBagPatients);
         DecisionTree dt=new DecisionTree();
@@ -89,18 +89,18 @@ public class RandomForest {
     }
 
     public int[] predict(File f) throws IOException {
-        int[] predictResult=new int[Data.getTotalNumber()];
         DecisionTrees=readTree();
         Data=Data.readFile(f);
+        int[] predictResult=new int[Data.getTotalNumber()];
         int num = 0;
         for(Patient p: Data.getPatients()){
             int[] treeResult = new int[10];
-            int c=0;
+            double c=0.0;
             for(int i=0;i<10;i++){
                 treeResult[i]=DecisionTrees[i].predict(p);
-                c+=treeResult[i];
+                c+=treeResult[i]/10.0;
             }
-            if(c>0){
+            if(c>-40){
                 predictResult[num]=1;
             }else {
                 predictResult[num] = 0;
@@ -131,6 +131,9 @@ public class RandomForest {
         BufferedReader reader = new BufferedReader(new FileReader("log.txt"));
         int num=Integer.valueOf(reader.readLine());
         DecisionTree[] dts = new DecisionTree[num];
+        for(int i=0;i<num;i++) {
+            dts[i]=new DecisionTree();
+        }
         String s;
         int count=0;
         while((s=reader.readLine())!=null||count<num){
@@ -143,6 +146,7 @@ public class RandomForest {
                 int SCORE=Integer.valueOf(Tree[i][2]);
                 treeNode tn=new treeNode(new BranchingCriteria(BN,BV),SCORE);
                 dts[count].maxHeap.heap[i+1]=tn;
+                dts[count].maxHeap.size++;
             }count++;
         }return dts;
     }
