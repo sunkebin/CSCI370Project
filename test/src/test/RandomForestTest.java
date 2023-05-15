@@ -51,10 +51,6 @@ class RandomForestTest {
     }
 
     @Test
-    void predict() {
-    }
-
-    @Test
     void OOBValidation() {
         randomForest.RandomForestAlg();
         randomForest.OOBValidation();
