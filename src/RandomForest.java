@@ -90,7 +90,8 @@ public class RandomForest {
 
     int[] predict(File f) throws IOException {
         int[] predictResult=new int[Data.getTotalNumber()];
-        DecisionTrees=readTree(f);
+        DecisionTrees=readTree();
+        Data=Data.readFile(f);
         int num = 0;
         for(Patient p: Data.getPatients()){
             int[] treeResult = new int[10];
@@ -126,8 +127,8 @@ public class RandomForest {
         }
     }
 
-    private DecisionTree[] readTree(File f) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(f));
+    private DecisionTree[] readTree() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader("log.txt"));
         int num=Integer.valueOf(reader.readLine());
         DecisionTree[] dts = new DecisionTree[num];
         String s;
