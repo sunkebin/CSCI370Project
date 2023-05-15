@@ -87,7 +87,11 @@ class DecisionTreeTest {
         // Assert that the branching criteria is not null
         assertNotNull(branchingCriteria);
         assertNotNull(branchingCriteria.getName());
+        System.out.println(branchingCriteria.getName());
         assertNotNull(branchingCriteria.getValue());
+        for(String a : decisionTree.criteria){
+            System.out.print(a + " ");
+        }
         assertTrue(decisionTree.getAvailableCriteria().contains(branchingCriteria.getName()));
     }
 

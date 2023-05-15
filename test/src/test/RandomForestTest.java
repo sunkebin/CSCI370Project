@@ -1,7 +1,10 @@
 package src.test;
 
 import org.junit.jupiter.api.Test;
+import src.Dataset;
+import src.DecisionTree;
 import src.Patient;
+import src.RandomForest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,7 @@ class RandomForestTest {
     Patient newPatient5;
     Patient newPatient6;
     List<Patient> testPatientData;
+    RandomForest randomForest;
 
     public RandomForestTest() {
         newPatient1 = new Patient(59, 2, 32.1, 100, 0, 157, 93.0, 37.5, 4.0, 4.859, 87);
@@ -33,10 +37,17 @@ class RandomForestTest {
         testPatientData.add(newPatient4);
         testPatientData.add(newPatient5);
         testPatientData.add(newPatient6);
+
+        randomForest = new RandomForest();
+        randomForest.Data = new Dataset(testPatientData, 0, 0);
     }
 
     @Test
     void randomForestAlg() {
+        // Call the randomForestAlg() method
+        randomForest.RandomForestAlg();
+        // Add assertions to check if the DecisionTrees array is populated with trees
+        assertEquals(RandomForest.MAX_TREES, randomForest.DecisionTrees.length);
     }
 
     @Test
@@ -45,5 +56,8 @@ class RandomForestTest {
 
     @Test
     void OOBValidation() {
+        randomForest.RandomForestAlg();
+        randomForest.OOBValidation();
+        assertTrue(randomForest.DecisionTrees[0].Accuracy >= 0.0 && randomForest.DecisionTrees[0].Accuracy <= 1.0);
     }
 }

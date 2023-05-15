@@ -79,7 +79,7 @@ public class DecisionTree {
     }
 
     public BranchingCriteria learnBranchingCriteria(LinkedList<Patient> data) {
-        String bestCriteriaName=new String();
+        String bestCriteriaName="";
         double bestCriteriaValue = Double.NaN;
         // Calculate and compare metrics for each criterion
         double bestImpurity = Double.POSITIVE_INFINITY; // Initialize with a high value to find the minimum impurity
@@ -143,7 +143,7 @@ public class DecisionTree {
     }
 
     public List<String> getAvailableCriteria() {
-        return criteria;
+        return new ArrayList<>(criteria);
     }
 
     public boolean isLeafLimitReached(treeNode node) {
@@ -162,7 +162,7 @@ public class DecisionTree {
     public int predict(Patient patient) {
         int i=1;
         treeNode curr=maxHeap.heap[i];
-        while(i<maxHeap.size){
+        while(i<=maxHeap.size){
             curr=maxHeap.heap[i];
             double v=patient.getCriterionValue(curr.Branch.getName());
             double bv=curr.Branch.getValue();

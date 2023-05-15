@@ -64,7 +64,8 @@ public class Dataset {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         List<Patient> patientList = new ArrayList<>();
         int patientIDCounter = 1;
-        String line = reader.readLine();
+        reader.readLine();  // Skip the first line (header)
+        String line;
         while ((line = reader.readLine()) != null) {
             String[] patientData = line.split(",");
             int patientID = patientIDCounter++;
