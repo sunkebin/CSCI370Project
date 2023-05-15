@@ -68,7 +68,7 @@ public class RandomForest {
         outOfBagSample.addAll(outOfBagPatients);
         DecisionTree dt=new DecisionTree();
         LinkedList<Patient> PatientLinkedList = new LinkedList<>();
-        for (Patient t : patients) {
+        for (Patient t : bootStrapPatients) {
             PatientLinkedList.add(t);
         }
         dt.buildDecisionTree(PatientLinkedList);
@@ -132,7 +132,7 @@ public class RandomForest {
         int num=Integer.valueOf(reader.readLine());
         DecisionTree[] dts = new DecisionTree[num];
         for(int i=0;i<num;i++) {
-            dts[i]=new DecisionTree();
+        	dts[i]=new DecisionTree();
         }
         String s;
         int count=0;

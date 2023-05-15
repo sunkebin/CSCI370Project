@@ -10,45 +10,45 @@ public class GUIhandler implements ActionListener {
     public JFrame jframe;
     public JTextArea ja;
     public JScrollPane sp;
-    public GUIhandler (JFrame jf) {
-        jframe = jf;
-        ja= new JTextArea(10, 20);
-        ja.setEditable(false);
-        sp = new JScrollPane(ja);
-        jframe.getContentPane().add(sp);
-    }
-
-    public void actionPerformed(ActionEvent event) {
-        String menuName = event.getActionCommand();
-        if (menuName.equals("Train")) {
-            JFileChooser chooser = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV Documents", "csv");
-            chooser.setFileFilter(filter);
-            int returnVal = chooser.showSaveDialog(null);
-            if(returnVal == JFileChooser.APPROVE_OPTION) {
-                try {
-                    readSource(chooser.getSelectedFile());
-                } catch (NumberFormatException | IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }else if(menuName.equals("Predict")) {
-            JFileChooser chooser = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV Documents", "csv");
-            chooser.setFileFilter(filter);
-            int returnVal = chooser.showSaveDialog(null);
-            if(returnVal == JFileChooser.APPROVE_OPTION) {
-                try {
-                    readSourcePredict(chooser.getSelectedFile());
-                } catch (NumberFormatException | IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        else if (menuName.equals("Quit")) {
-            System.exit(0);
-        }
-    }
+   public GUIhandler (JFrame jf) {
+      jframe = jf;
+      ja= new JTextArea(10, 20);
+      ja.setEditable(false);
+      sp = new JScrollPane(ja);
+      jframe.getContentPane().add(sp); 
+   }
+   
+   public void actionPerformed(ActionEvent event) {
+      String menuName = event.getActionCommand();
+      if (menuName.equals("Train")) {
+    	  JFileChooser chooser = new JFileChooser();
+    	  FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV Documents", "csv");
+    	  chooser.setFileFilter(filter);
+    	  int returnVal = chooser.showSaveDialog(null);
+    	  if(returnVal == JFileChooser.APPROVE_OPTION) {
+    		  try {
+				readSource(chooser.getSelectedFile());
+			} catch (NumberFormatException | IOException e) {
+				e.printStackTrace();
+			}
+    	  }
+      }else if(menuName.equals("Predict")) {
+          JFileChooser chooser = new JFileChooser();
+          FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV Documents", "csv");
+          chooser.setFileFilter(filter);
+          int returnVal = chooser.showSaveDialog(null);
+          if(returnVal == JFileChooser.APPROVE_OPTION) {
+              try {
+                  readSourcePredict(chooser.getSelectedFile());
+              } catch (NumberFormatException | IOException e) {
+                  e.printStackTrace();
+              }
+          }
+      }
+      else if (menuName.equals("Quit")) {
+          System.exit(0);
+      }
+   }
 
     public void readSourcePredict(File selectedFile)  throws NumberFormatException, IOException{
         RandomForest rf=new RandomForest();
@@ -64,7 +64,7 @@ public class GUIhandler implements ActionListener {
 
     public void readSource(File chosenFile) throws NumberFormatException, IOException {
         RandomForest rf=new RandomForest();
-        rf.readFile(chosenFile);
+	    rf.readFile(chosenFile);
         rf.RandomForestAlg();
         ja.selectAll();
         ja.replaceSelection("");
@@ -75,6 +75,6 @@ public class GUIhandler implements ActionListener {
         //report?
 
     }
-
-
+   
+   
 }

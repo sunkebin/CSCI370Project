@@ -10,17 +10,19 @@ public class DecisionTree {
     public List<treeNode> treeNodes;
     public treeNode root;
     public List<String> criteria = new ArrayList<>();
-    public double Accuracy=0.0;
+    public double Accuracy;
 
     public DecisionTree(List<treeNode> treeNodes, treeNode root){
         this.treeNodes = treeNodes;
         this.root = root;
+        Accuracy=0.0;
         criteria.addAll(Arrays.asList("age", "gender", "bmi", "bloodPressure", "totalSerumCholesterol","ldl", "hdl", "tch", "ltg", "glu"));
     }
 
     public DecisionTree(){
         this.treeNodes = new LinkedList<>();
         this.root = null;
+        Accuracy=0.0;
         criteria.addAll(Arrays.asList("age", "gender", "bmi", "bloodPressure", "totalSerumCholesterol","ldl", "hdl", "tch", "ltg", "glu"));
     }
 
@@ -28,6 +30,7 @@ public class DecisionTree {
         this.treeNodes = new LinkedList<>();
         this.root = new treeNode(patientData);
         this.treeNodes.add(this.root);
+        Accuracy=0.0;
         criteria.addAll(Arrays.asList("age", "gender", "bmi", "bloodPressure", "totalSerumCholesterol","ldl", "hdl", "tch", "ltg", "glu"));
     }
 
@@ -173,14 +176,6 @@ public class DecisionTree {
 
     public void addNode(treeNode node){
         treeNodes.add(node);
-    }
-
-    public void Report(){
-
-    }
-
-    public void Branching(treeNode node, BranchingCriteria criteria, List<treeNode> children){
-
     }
 
     public double getImpurity() {
