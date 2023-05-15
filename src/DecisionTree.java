@@ -75,7 +75,7 @@ public class DecisionTree {
             }
         }
         node.Branch=branchingCriteria;
-        node.score=score;
+        node.score=score/100;
         subsets.add(leftSubset);
         node.leftPatients=leftSubset;
         subsets.add(rightSubset);
